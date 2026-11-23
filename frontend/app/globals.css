@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* "Central bank" design system: off-white #F8FAFC, navy #0B1F3A, one teal accent #0EA5A4,
+   red #DC2626 for alerts. Inter, rounded-2xl cards, soft borders. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-teal: var(--teal);
+  --color-alert: var(--alert);
+  --color-hawk: var(--hawk);
+  --color-dove: var(--dove);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #f8fafc;
+  --foreground: #0b1f3a;
+  --card: #ffffff;
+  --card-foreground: #0b1f3a;
+  --popover: #ffffff;
+  --popover-foreground: #0b1f3a;
+  --primary: #0b1f3a;
+  --primary-foreground: #f8fafc;
+  --secondary: #eef2f7;
+  --secondary-foreground: #0b1f3a;
+  --muted: #eef2f7;
+  --muted-foreground: #526077;
+  --accent: #e6f6f6;
+  --accent-foreground: #0b1f3a;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0ea5a4;
+  --teal: #0ea5a4;
+  --alert: #dc2626;
+  --hawk: #dc2626;
+  --dove: #0ea5a4;
+  --chart-1: #0b1f3a;
+  --chart-2: #0ea5a4;
+  --chart-3: #64748b;
+  --chart-4: #dc2626;
+  --chart-5: #94a3b8;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0b1f3a;
+  --sidebar-primary: #0b1f3a;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #eef2f7;
+  --sidebar-accent-foreground: #0b1f3a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0ea5a4;
+}
+
+.dark {
+  --background: #0a1424;
+  --foreground: #e6edf6;
+  --card: #0f1d33;
+  --card-foreground: #e6edf6;
+  --popover: #0f1d33;
+  --popover-foreground: #e6edf6;
+  --primary: #e6edf6;
+  --primary-foreground: #0b1f3a;
+  --secondary: #16263f;
+  --secondary-foreground: #e6edf6;
+  --muted: #16263f;
+  --muted-foreground: #93a3ba;
+  --accent: #10333a;
+  --accent-foreground: #e6edf6;
+  --destructive: #f87171;
+  --border: #1f3150;
+  --input: #1f3150;
+  --ring: #2dd4bf;
+  --teal: #2dd4bf;
+  --alert: #f87171;
+  --hawk: #f87171;
+  --dove: #2dd4bf;
+  --chart-1: #93c5fd;
+  --chart-2: #2dd4bf;
+  --chart-3: #94a3b8;
+  --chart-4: #f87171;
+  --chart-5: #64748b;
+  --sidebar: #0f1d33;
+  --sidebar-foreground: #e6edf6;
+  --sidebar-primary: #2dd4bf;
+  --sidebar-primary-foreground: #0b1f3a;
+  --sidebar-accent: #16263f;
+  --sidebar-accent-foreground: #e6edf6;
+  --sidebar-border: #1f3150;
+  --sidebar-ring: #2dd4bf;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Highlighted source passages and citation chips */
+mark.passage {
+  background: color-mix(in oklch, var(--teal) 25%, transparent);
+  color: inherit;
+  border-radius: 2px;
+}
