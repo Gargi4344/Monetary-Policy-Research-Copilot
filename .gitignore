@@ -1,0 +1,28 @@
+# Secrets
+.env
+
+# Data: downloaded at runtime by `make data` (never committed). Fixtures live in backend/tests/fixtures.
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+frontend/test-results/
+frontend/playwright-report/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
