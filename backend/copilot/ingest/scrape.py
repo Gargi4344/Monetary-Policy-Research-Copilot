@@ -36,10 +36,14 @@ SITEMAPS = [f"{BASE}/wp-sitemap-posts-post-{i}.xml" for i in range(1, 5)] + [
 PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("announcement", re.compile(r"/(\d{4})/\d{2}/fad-press-release-\d{4}-\d{2}-\d{2}/$")),
     ("opening_statement", re.compile(r"/(\d{4})/\d{2}/opening-statement-[^/]+/$")),
-    ("deliberations", re.compile(r"/(\d{4})/\d{2}/(?:publication-)?summary-(?:of-deliberations|governing-council-deliberations)[^/]*/$")),
+    # Only the summaries themselves; "publication-summary-of-deliberations-..." pages are
+    # schedule notices whose extracted text is the site navigation.
+    ("deliberations", re.compile(r"/(\d{4})/\d{2}/summary-governing-council-deliberations[^/]*/$")),
     ("mpr", re.compile(r"/publications/mpr/mpr-(\d{4})-\d{2}(?:-\d{2})?/$")),
 ]  # fmt: skip
 MIN_WORDS = 120  # pages shorter than this are schedule notices, not content
+# Text that only appears when the extractor fell back to the site's navigation menus.
+NAVIGATION = re.compile(r"Find the latest updates and Bank communications|plan to guide the Bank along its Reconciliation journey|Every five years, the Bank of Canada and the Government of Canada review")
 
 
 @dataclass
@@ -85,7 +89,7 @@ def parse_page(html: str, url: str, doc_type: str) -> Doc | None:
         return None
     data = extracted.as_dict() if hasattr(extracted, "as_dict") else dict(extracted)
     text = (data.get("text") or "").strip()
-    if len(text.split()) < MIN_WORDS:
+    if len(text.split()) < MIN_WORDS or NAVIGATION.search(text[:600]):
         return None
     title = (data.get("title") or "").strip() or url.rstrip("/").split("/")[-1]
     page_date = data.get("date") or date_from_url(url)

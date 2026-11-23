@@ -202,3 +202,12 @@ def test_parse_valet_fixture() -> None:
     )
     assert rows and all(isinstance(v, float) for _, v in rows)
     assert dict(rows)["2024-06-04"] == 5.0 and dict(rows)["2024-06-06"] == 4.75
+
+
+def test_schedule_notices_and_navigation_pages_are_skipped() -> None:
+    from copilot.ingest.scrape import parse_page
+
+    b = "https://www.bankofcanada.ca"
+    assert classify_url(f"{b}/2026/02/publication-summary-of-deliberations-february-11-2026/", 2015) is None
+    nav = "<html><body><main><p>" + "Find the latest updates and Bank communications, answers. " * 30 + "</p></main></body></html>"
+    assert parse_page(nav, f"{b}/2024/06/fad-press-release-2024-06-05/", "announcement") is None
